@@ -3,7 +3,7 @@ package com.murary.utils
 class Constants {
 
     companion object {
-        const val BASE_URL = ""
+        const val BASE_URL = "https://api.deezer.com"
 
         // Network Constants
         const val PAGE_LIMIT = 20

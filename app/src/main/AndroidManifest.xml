@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.murary">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".application.MuraryApplication"
         android:allowBackup="false"
@@ -15,9 +17,10 @@
         tools:targetApi="m">
 
         <activity
-            android:name=".features.artists.ArtistsActivity"
+            android:name=".features.artists.view.ArtistsActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/ActivityThemeNoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

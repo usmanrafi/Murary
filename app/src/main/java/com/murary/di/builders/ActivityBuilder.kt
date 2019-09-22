@@ -1,6 +1,6 @@
 package com.murary.di.builders
 
-import com.murary.features.artists.ArtistsActivity
+import com.murary.features.artists.view.ArtistsActivity
 import com.murary.di.annotations.ActivityScope
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
