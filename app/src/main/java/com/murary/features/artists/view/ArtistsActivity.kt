@@ -1,5 +1,6 @@
 package com.murary.features.artists.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import com.murary.R
+import com.murary.features.albums.view.AlbumsActivity
 import com.murary.features.artists.ArtistsPresenter
 import com.murary.features.artists.ArtistsView
 import com.murary.features.artists.model.Artist
@@ -30,7 +32,9 @@ class ArtistsActivity : AppCompatActivity(), ArtistsView, ArtistItemClickListene
     }
 
     override fun onArtistClick(artist: Artist) {
-        showToast(artist.name ?: "")
+        val intent = Intent(this, AlbumsActivity::class.java)
+        intent.putExtra(AlbumsActivity.ARTIST_NAME, artist.name)
+        startActivity(intent)
     }
 
     override fun showProgressBar() {
