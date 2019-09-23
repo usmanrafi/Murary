@@ -1,7 +1,6 @@
 package com.murary.features.artists.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
@@ -44,7 +43,6 @@ class ArtistsActivity : AppCompatActivity(), ArtistsView, ArtistItemClickListene
 
     override fun showToast(toastMessage: String) {
         Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show()
-        Log.d("Murary", toastMessage)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,10 +75,10 @@ class ArtistsActivity : AppCompatActivity(), ArtistsView, ArtistItemClickListene
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 val query = newText?.trim()
-                query?.let{
+                query?.let {
                     if (query.length >= 3)
                         presenter.searchArtists(query)
-                    else if(query.isBlank())
+                    else if (query.isBlank())
                         adapter.clear()
 
                 } ?: adapter.clear()
