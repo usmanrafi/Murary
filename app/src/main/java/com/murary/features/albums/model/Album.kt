@@ -1,6 +1,7 @@
 package com.murary.features.albums.model
 
 import com.murary.features.artists.model.Artist
+import java.io.Serializable
 
 data class Album(
     val artist: Artist? = null,
@@ -18,4 +19,4 @@ data class Album(
     val title: String? = null,
     val tracklist: String? = null,
     val type: String? = null
-)
+) : Serializable

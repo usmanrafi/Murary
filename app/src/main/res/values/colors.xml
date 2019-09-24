@@ -7,4 +7,6 @@
     <color name="backgroundColor">#303030</color>
     <color name="textColorPrimary">@android:color/white</color>
     <color name="hintTextColor">#6D6D6D</color>
+
+    <color name="textColorSecondary">#8E8E8E</color>
 </resources>

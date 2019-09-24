@@ -1,4 +1,4 @@
-package com.murary.features.albums
+package com.murary.features.albums.list
 
 import com.murary.base.BasePresenter
 import com.murary.features.albums.model.AlbumSearchResponseDTO

@@ -1,5 +1,6 @@
-package com.murary.features.albums.view
+package com.murary.features.albums.list.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -7,15 +8,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.murary.R
-import com.murary.features.albums.AlbumsPresenter
-import com.murary.features.albums.AlbumsView
+import com.murary.features.albums.details.view.AlbumDetailsActivity
+import com.murary.features.albums.list.AlbumsPresenter
+import com.murary.features.albums.list.AlbumsView
 import com.murary.features.albums.model.Album
 import com.murary.utils.EndlessRecyclerViewScrollListener
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_albums.*
 import javax.inject.Inject
 
-class AlbumsActivity : AppCompatActivity(), AlbumsView, AlbumItemClickListener {
+class AlbumsActivity : AppCompatActivity(), AlbumsView,
+    AlbumItemClickListener {
 
     @Inject
     lateinit var presenter: AlbumsPresenter
@@ -23,7 +26,8 @@ class AlbumsActivity : AppCompatActivity(), AlbumsView, AlbumItemClickListener {
     private var artistName: String? = null
 
     private val columnCount = 2
-    private val adapter = AlbumsListAdapter(context = this, listener = this)
+    private val adapter =
+        AlbumsListAdapter(context = this, listener = this)
     private val layoutManager = GridLayoutManager(this, columnCount)
 
     private val endlessRecyclerViewScrollListener =
@@ -34,7 +38,10 @@ class AlbumsActivity : AppCompatActivity(), AlbumsView, AlbumItemClickListener {
         }
 
     override fun onAlbumClick(album: Album) {
-        showToast(album.title ?: "Error")
+        val intent = Intent(this, AlbumDetailsActivity::class.java)
+        intent.putExtra(AlbumDetailsActivity.ALBUM, album)
+
+        startActivity(intent)
     }
 
     override fun showAlbums(albums: List<Album>?) {

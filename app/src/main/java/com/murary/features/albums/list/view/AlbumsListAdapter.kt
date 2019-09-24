@@ -1,4 +1,4 @@
-package com.murary.features.albums.view
+package com.murary.features.albums.list.view
 
 import android.content.Context
 import android.view.LayoutInflater

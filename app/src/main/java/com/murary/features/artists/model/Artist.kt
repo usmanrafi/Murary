@@ -1,5 +1,7 @@
 package com.murary.features.artists.model
 
+import java.io.Serializable
+
 data class Artist(
     val id: Int? = null,
     val link: String? = null,
@@ -15,4 +17,4 @@ data class Artist(
     val share: String? = null,
     val tracklist: String? = null,
     val type: String? = null
-)
+) : Serializable
