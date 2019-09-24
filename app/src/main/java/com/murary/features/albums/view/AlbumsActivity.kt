@@ -55,6 +55,11 @@ class AlbumsActivity : AppCompatActivity(), AlbumsView, AlbumItemClickListener {
         Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show()
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_albums)
@@ -65,15 +70,23 @@ class AlbumsActivity : AppCompatActivity(), AlbumsView, AlbumItemClickListener {
     }
 
     private fun init() {
+        setupActionBar()
+        setupRecyclerView()
+
         artistName = intent?.getStringExtra(ARTIST_NAME)
 
         presenter.attachView(this)
+        presenter.searchAlbums(artistName)
+    }
 
+    private fun setupActionBar(){
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    private fun setupRecyclerView(){
         rvAlbums.adapter = adapter
         rvAlbums.layoutManager = layoutManager
         rvAlbums.addOnScrollListener(endlessRecyclerViewScrollListener)
-
-        presenter.searchAlbums(artistName)
     }
 
     companion object {

@@ -2,5 +2,6 @@
     <string name="app_name">Murary</string>
 
     <string name="artists">Artists</string>
+    <string name="albums">Albums</string>
     <string name="enter_artist_name">Enter Artist Name</string>
 </resources>

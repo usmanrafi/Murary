@@ -15,7 +15,10 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name=".features.albums.view.AlbumsActivity"></activity>
+        <activity
+            android:name=".features.albums.view.AlbumsActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/albums"/>
         <activity
             android:name=".features.artists.view.ArtistsActivity"
             android:launchMode="singleTop"
