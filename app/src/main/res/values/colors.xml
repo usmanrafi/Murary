@@ -9,4 +9,7 @@
     <color name="hintTextColor">#6D6D6D</color>
 
     <color name="textColorSecondary">#8E8E8E</color>
+
+    <color name="backgroundGradientStart">#FE6D6D6D</color>
+    <color name="backgroundGradientEnd">#FE000000</color>
 </resources>

@@ -22,5 +22,5 @@ interface DeezerGateway {
     fun executeAlbumUrl(@Url url: String): Single<Response<AlbumSearchResponseDTO>>
 
     @GET("album/{albumId}/tracks")
-    fun getAlbumDetails(@Path("albumId") albumId: Int): Single<Response<AlbumDetailsResponseDTO>>
+    fun getAlbumTracks(@Path("albumId") albumId: String): Single<Response<AlbumDetailsResponseDTO>>
 }

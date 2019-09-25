@@ -14,6 +14,7 @@ import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_album_details.*
 import javax.inject.Inject
 
+
 class AlbumDetailsActivity : AppCompatActivity(), AlbumDetailsView {
 
     private var album: Album? = null
@@ -21,7 +22,12 @@ class AlbumDetailsActivity : AppCompatActivity(), AlbumDetailsView {
     @Inject
     lateinit var presenter: AlbumDetailsPresenter
 
+    private val adapter = TracksListAdapter(context = this)
+
     override fun showTracks(tracks: List<Track>?) {
+        tracks?.let {
+            adapter.addTracks(tracks)
+        }
     }
 
     override fun showProgressBar() {
@@ -51,7 +57,7 @@ class AlbumDetailsActivity : AppCompatActivity(), AlbumDetailsView {
         initViews()
 
         presenter.attachView(this)
-//        presenter.searchAlbums(artistName)
+        presenter.getAlbumTracks(album?.id)
     }
 
     private fun initViews() {
@@ -67,10 +73,12 @@ class AlbumDetailsActivity : AppCompatActivity(), AlbumDetailsView {
         tvAlbumName.text = album?.title
         tvArtistName.text = album?.artist?.name
 
-//        setupRecyclerView()
-
+        setupRecyclerView()
     }
 
+    private fun setupRecyclerView() {
+        rvTracks.adapter = adapter
+    }
 
     companion object {
         const val ALBUM = "ALBUM"
