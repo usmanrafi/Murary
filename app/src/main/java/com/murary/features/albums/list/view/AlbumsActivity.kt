@@ -34,7 +34,7 @@ class AlbumsActivity : AppCompatActivity(), AlbumsView,
     private val endlessRecyclerViewScrollListener =
         object : EndlessRecyclerViewScrollListener(layoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
-                presenter.getAlbums(artist?.id)
+                presenter.getAlbums(artist)
             }
         }
 
@@ -85,7 +85,7 @@ class AlbumsActivity : AppCompatActivity(), AlbumsView,
 
         presenter.attachView(this)
 
-        presenter.getAlbums(artist?.id)
+        presenter.getAlbums(artist)
     }
 
     private fun setupActionBar() {

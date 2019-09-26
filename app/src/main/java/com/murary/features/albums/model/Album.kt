@@ -4,7 +4,7 @@ import com.murary.features.artists.model.Artist
 import java.io.Serializable
 
 data class Album(
-    val artist: Artist? = null,
+    var artist: Artist? = null,
     val cover: String? = null,
     val cover_big: String? = null,
     val cover_medium: String? = null,

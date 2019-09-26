@@ -3,6 +3,7 @@ package com.murary.features.albums.list
 import com.murary.base.BasePresenter
 import com.murary.features.albums.model.AlbumListResponseDTO
 import com.murary.features.albums.model.AlbumSearchResponseDTO
+import com.murary.features.artists.model.Artist
 import com.murary.network.DeezerGateway
 import com.murary.network.NetworkHelper
 import com.murary.network.ServiceCallback
@@ -44,20 +45,25 @@ class AlbumsPresenter @Inject constructor(
     // for paging
     private var cachedListResponse: AlbumListResponseDTO? = null
 
-    fun getAlbums(artistId: Int?) {
-        artistId?.let {
+    fun getAlbums(artist: Artist?) {
+        artist?.id?.let { id ->
 
             view?.showProgressBar()
             networkHelper.serviceCall(
                 if (cachedListResponse != null)
                     serviceGateway.executeAlbumListUrl(cachedListResponse?.next ?: "")
                 else
-                    serviceGateway.getAlbums(artistId),
+                    serviceGateway.getAlbums(id),
                 object : ServiceCallback<AlbumListResponseDTO> {
                     override fun onSuccess(response: AlbumListResponseDTO) {
                         cachedListResponse = response
 
-                        view?.showAlbums(response.data)
+                        // the listing api for albums does not contain artist information
+                        view?.showAlbums(response.data?.map {
+                            it.artist = artist
+                            it
+                        })
+
                         view?.hideProgressBar()
                     }
 
