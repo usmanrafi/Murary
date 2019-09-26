@@ -20,7 +20,7 @@ class ArtistsListAdapter(
     private val artists: ArrayList<Artist> = ArrayList()
 
     fun addArtists(artists: List<Artist>, clearPrevious: Boolean = false) {
-        if(clearPrevious)
+        if (clearPrevious)
             this.artists.clear()
 
         this.artists.addAll(artists)
@@ -62,7 +62,6 @@ class ArtistsListAdapter(
 
     class ArtistViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val parent: View = view.parentLayout
-
         val image: ImageView = view.ivArtist
         val name: TextView = view.tvArtistName
     }

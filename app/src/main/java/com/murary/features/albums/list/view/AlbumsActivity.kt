@@ -88,11 +88,11 @@ class AlbumsActivity : AppCompatActivity(), AlbumsView,
         presenter.getAlbums(artist?.id)
     }
 
-    private fun setupActionBar(){
+    private fun setupActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    private fun setupRecyclerView(){
+    private fun setupRecyclerView() {
         rvAlbums.adapter = adapter
         rvAlbums.layoutManager = layoutManager
 

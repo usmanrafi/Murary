@@ -12,8 +12,8 @@ class AlbumDetailsPresenter @Inject constructor(
     private val serviceGateway: DeezerGateway
 ) : BasePresenter<AlbumDetailsView>() {
 
-    fun getAlbumTracks(albumId: String?){
-        albumId?.let{
+    fun getAlbumTracks(albumId: String?) {
+        albumId?.let {
 
             view?.showProgressBar()
 
