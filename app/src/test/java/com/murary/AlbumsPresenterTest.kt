@@ -4,6 +4,7 @@ import com.murary.features.albums.list.AlbumsPresenter
 import com.murary.features.albums.list.AlbumsView
 import com.murary.features.albums.model.AlbumListResponseDTO
 import com.murary.features.albums.model.AlbumSearchResponseDTO
+import com.murary.features.artists.model.Artist
 import com.murary.network.DeezerGateway
 import com.murary.network.NetworkHelper
 import com.murary.network.ServiceCallback
@@ -119,11 +120,14 @@ class AlbumsPresenterTest {
     @Mock
     private lateinit var listResponseDTO: AlbumListResponseDTO
 
+    @Mock
+    private lateinit var artist: Artist
+
     @Test
     fun `getAlbums success test`() {
         Mockito.`when`(serviceGateway.getAlbums(ArgumentMatchers.anyInt())).thenReturn(getCall)
 
-        presenter.getAlbums(1)
+        presenter.getAlbums(artist)
 
         verify(networkHelper).serviceCall(
             eq(getCall),
@@ -140,7 +144,7 @@ class AlbumsPresenterTest {
     fun `getAlbums paged success test`() {
         Mockito.`when`(serviceGateway.getAlbums(ArgumentMatchers.anyInt())).thenReturn(getCall)
 
-        presenter.getAlbums(1)
+        presenter.getAlbums(artist)
 
         verify(networkHelper).serviceCall(
             eq(getCall),
@@ -152,7 +156,7 @@ class AlbumsPresenterTest {
         verify(view).hideProgressBar()
         verify(view).showAlbums(listResponseDTO.data)
 
-        presenter.getAlbums(1)
+        presenter.getAlbums(artist)
 
         verify(serviceGateway).executeAlbumListUrl(listResponseDTO.next ?: "")
     }
@@ -161,7 +165,7 @@ class AlbumsPresenterTest {
     fun `getAlbums failure test`() {
         Mockito.`when`(serviceGateway.getAlbums(ArgumentMatchers.anyInt())).thenReturn(getCall)
 
-        presenter.getAlbums(1)
+        presenter.getAlbums(artist)
 
         verify(networkHelper).serviceCall(
             eq(getCall),
