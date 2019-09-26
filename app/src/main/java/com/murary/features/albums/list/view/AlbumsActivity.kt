@@ -12,6 +12,7 @@ import com.murary.features.albums.details.view.AlbumDetailsActivity
 import com.murary.features.albums.list.AlbumsPresenter
 import com.murary.features.albums.list.AlbumsView
 import com.murary.features.albums.model.Album
+import com.murary.features.artists.model.Artist
 import com.murary.utils.EndlessRecyclerViewScrollListener
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_albums.*
@@ -23,7 +24,7 @@ class AlbumsActivity : AppCompatActivity(), AlbumsView,
     @Inject
     lateinit var presenter: AlbumsPresenter
 
-    private var artistName: String? = null
+    private var artist: Artist? = null
 
     private val columnCount = 2
     private val adapter =
@@ -33,7 +34,7 @@ class AlbumsActivity : AppCompatActivity(), AlbumsView,
     private val endlessRecyclerViewScrollListener =
         object : EndlessRecyclerViewScrollListener(layoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
-                presenter.searchAlbums(artistName)
+                presenter.getAlbums(artist?.id)
             }
         }
 
@@ -80,10 +81,11 @@ class AlbumsActivity : AppCompatActivity(), AlbumsView,
         setupActionBar()
         setupRecyclerView()
 
-        artistName = intent?.getStringExtra(ARTIST_NAME)
+        artist = intent?.getSerializableExtra(ARTIST) as Artist?
 
         presenter.attachView(this)
-        presenter.searchAlbums(artistName)
+
+        presenter.getAlbums(artist?.id)
     }
 
     private fun setupActionBar(){
@@ -93,10 +95,12 @@ class AlbumsActivity : AppCompatActivity(), AlbumsView,
     private fun setupRecyclerView(){
         rvAlbums.adapter = adapter
         rvAlbums.layoutManager = layoutManager
+
+        // used for paging while searching
         rvAlbums.addOnScrollListener(endlessRecyclerViewScrollListener)
     }
 
     companion object {
-        const val ARTIST_NAME = "ARTIST_NAME"
+        const val ARTIST = "ARTIST"
     }
 }

@@ -33,7 +33,7 @@ class ArtistsActivity : AppCompatActivity(), ArtistsView, ArtistItemClickListene
 
     override fun onArtistClick(artist: Artist) {
         val intent = Intent(this, AlbumsActivity::class.java)
-        intent.putExtra(AlbumsActivity.ARTIST_NAME, artist.name)
+        intent.putExtra(AlbumsActivity.ARTIST, artist)
         startActivity(intent)
     }
 

@@ -52,7 +52,7 @@ class AlbumDetailsActivity : AppCompatActivity(), AlbumDetailsView {
     }
 
     private fun init() {
-        album = intent?.getSerializableExtra(ALBUM) as Album
+        album = intent?.getSerializableExtra(ALBUM) as Album?
 
         initViews()
 
