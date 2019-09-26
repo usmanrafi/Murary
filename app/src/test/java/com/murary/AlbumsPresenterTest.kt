@@ -2,6 +2,7 @@ package com.murary
 
 import com.murary.features.albums.list.AlbumsPresenter
 import com.murary.features.albums.list.AlbumsView
+import com.murary.features.albums.model.AlbumListResponseDTO
 import com.murary.features.albums.model.AlbumSearchResponseDTO
 import com.murary.network.DeezerGateway
 import com.murary.network.NetworkHelper
@@ -46,7 +47,8 @@ class AlbumsPresenterTest {
 
     @Test
     fun `searchAlbums success test`() {
-        Mockito.`when`(serviceGateway.searchAlbums(ArgumentMatchers.anyString())).thenReturn(searchCall)
+        Mockito.`when`(serviceGateway.searchAlbums(ArgumentMatchers.anyString()))
+            .thenReturn(searchCall)
 
         presenter.searchAlbums("foo")
 
@@ -63,7 +65,8 @@ class AlbumsPresenterTest {
 
     @Test
     fun `searchAlbums paged success test`() {
-        Mockito.`when`(serviceGateway.searchAlbums(ArgumentMatchers.anyString())).thenReturn(searchCall)
+        Mockito.`when`(serviceGateway.searchAlbums(ArgumentMatchers.anyString()))
+            .thenReturn(searchCall)
 
         presenter.searchAlbums("foo")
 
@@ -84,7 +87,8 @@ class AlbumsPresenterTest {
 
     @Test
     fun `searchAlbums failure test`() {
-        Mockito.`when`(serviceGateway.searchAlbums(ArgumentMatchers.anyString())).thenReturn(searchCall)
+        Mockito.`when`(serviceGateway.searchAlbums(ArgumentMatchers.anyString()))
+            .thenReturn(searchCall)
 
         presenter.searchAlbums("foo")
 
@@ -101,9 +105,81 @@ class AlbumsPresenterTest {
     }
 
     @Test
-    fun `empty search query test`(){
+    fun `empty search query test`() {
         presenter.searchAlbums(null)
 
         verifyNoMoreInteractions(networkHelper)
     }
+
+    @Mock
+    private lateinit var getCall: Single<Response<AlbumListResponseDTO>>
+    @Captor
+    private lateinit var getCaptor: ArgumentCaptor<ServiceCallback<AlbumListResponseDTO>>
+
+    @Mock
+    private lateinit var listResponseDTO: AlbumListResponseDTO
+
+    @Test
+    fun `getAlbums success test`() {
+        Mockito.`when`(serviceGateway.getAlbums(ArgumentMatchers.anyInt())).thenReturn(getCall)
+
+        presenter.getAlbums(1)
+
+        verify(networkHelper).serviceCall(
+            eq(getCall),
+            capture(getCaptor)
+        )
+
+        getCaptor.value.onSuccess(listResponseDTO)
+
+        verify(view).hideProgressBar()
+        verify(view).showAlbums(listResponseDTO.data)
+    }
+
+    @Test
+    fun `getAlbums paged success test`() {
+        Mockito.`when`(serviceGateway.getAlbums(ArgumentMatchers.anyInt())).thenReturn(getCall)
+
+        presenter.getAlbums(1)
+
+        verify(networkHelper).serviceCall(
+            eq(getCall),
+            capture(getCaptor)
+        )
+
+        getCaptor.value.onSuccess(listResponseDTO)
+
+        verify(view).hideProgressBar()
+        verify(view).showAlbums(listResponseDTO.data)
+
+        presenter.getAlbums(1)
+
+        verify(serviceGateway).executeAlbumListUrl(listResponseDTO.next ?: "")
+    }
+
+    @Test
+    fun `getAlbums failure test`() {
+        Mockito.`when`(serviceGateway.getAlbums(ArgumentMatchers.anyInt())).thenReturn(getCall)
+
+        presenter.getAlbums(1)
+
+        verify(networkHelper).serviceCall(
+            eq(getCall),
+            capture(getCaptor)
+        )
+
+        val error = "ERROR"
+        getCaptor.value.onFailure(error)
+
+        verify(view).hideProgressBar()
+        verify(view).showToast(error)
+    }
+
+    @Test
+    fun `null artist id test`() {
+        presenter.getAlbums(null)
+
+        verifyNoMoreInteractions(networkHelper)
+    }
+
 }
